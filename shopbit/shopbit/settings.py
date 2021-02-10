@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'fitbitdata.apps.FitbitdataConfig',
+    'socialapp.apps.SocialappConfig',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
