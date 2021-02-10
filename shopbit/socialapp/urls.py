@@ -5,5 +5,6 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-   # path('badges/<str:encodedId>/', views.view_badges, name='view_badges'),
+   path('share/', views.share_badge, name='share_badge'),
+   path('feed/', views.view_feed, name='view_feed')
 ]

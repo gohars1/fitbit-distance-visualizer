@@ -9,13 +9,11 @@
 </head>
 
 <body>
-    {{ user.life_time_km }}
-    <a href = "/badges/">
-        whatidoo
+    {% for post in posts %}
+    <a>
+        {{ post.text }}{{ post.username }}
     </a>
-    <a href="/feed/">
-        feed
-    </a>
+    {% endfor %}
 </body>
 
 </html>

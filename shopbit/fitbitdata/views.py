@@ -18,7 +18,7 @@ def fitbit_login(request):
     
     fitbit = Fitbit(CLIENT_ID, CLIENT_SECRET, redirect_uri, timeout=10)
 
-    url, _ = fitbit.client.authorize_token_url()#prompt="login")
+    url, _ = fitbit.client.authorize_token_url(prompt="login")
 
     threading.Timer(1, webbrowser.open, args=(url,)).start()
     

@@ -4,8 +4,6 @@ from django.dispatch import receiver
 
 distance_hash = {385 : "Toronto", 184 : "Montreal", 482 : "Waterloo", 384400 : "Moon" }
 floors_hash = {147 : "CN Tower", 102 : "Empire State", 2061: "Mount Everest" , 2309: "Ascension"}
-
-
 # Create your models here.
 
 class User(models.Model):
@@ -14,11 +12,9 @@ class User(models.Model):
     life_time_km = models.IntegerField(default=0)
     life_time_floors = models.IntegerField(default=0)
 
-class UserBadges(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
-    badge = models.CharField(max_length=20)
-
-
+# class UserBadges(models.Model):
+#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
+#     badge = models.CharField(max_length=20)
 
 #
 #   badges page:
