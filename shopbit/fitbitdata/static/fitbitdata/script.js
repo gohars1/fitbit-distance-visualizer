@@ -1,13 +1,12 @@
 $(document).ready(function(){
-    $("#share").click(function(){
+    $(".sharebutton").click(function(){
         const csrftoken = Cookies.get('csrftoken');
         var badge = $(this).attr("value");
         var json = { "badgename" : badge }
 
-        
         $.ajax({
             type: 'POST',
-            url: 'http://127.0.0.1:8000/share/',
+            url: '/share/',
             headers: { 'X-CSRFToken': csrftoken },
             data: json,
             success: function(){

@@ -15,13 +15,10 @@ def share_badge(request):
     text = "I earned the " + badgename + " badge!"
     post = Post(text=text, user_id=user, username=username)
     post.save()
-    return HttpResponse("")
+    return HttpResponse("hello")
 
 def view_feed(request):
-    # fitbit = create_fitbit_with_cookies(request)
-    # user = get_user_with_client(fitbit)
     posts = Post.objects.all()
-
     template = loader.get_template('socialapp/view_feed.html')
     context = { 'posts' : posts }
     return HttpResponse(template.render(context, request))

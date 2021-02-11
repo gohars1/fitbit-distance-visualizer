@@ -12,17 +12,18 @@
 {% load static %}
 <script src="{% static 'fitbitdata/script.js' %}"></script>
 <body>
+  {{ csrf_token }}
   {% for distance in distance_badges %}
-    <a id="badgename">{{ distance.1 }}</a>
+    <a>{{ distance.1 }}</a>
     {% if distance.0 == True %}
-    <button id="share" value="{{ distance.1 }}">share</button>
+    <button id="share" class="sharebutton" value="{{ distance.1 }}">share</button>
     {% else %}
     <a>pending</a>
     {% endif %}
   {% endfor %}
 
   {% for floors in floors_badges %}
-  <a id="badgename">{{ floors.1 }}</a>
+  <a>{{ floors.1 }}</a>
   {% if floors.0 == True %}
   <button id="share" value="{{ floors.1 }}">share</button>
   {% else %}
