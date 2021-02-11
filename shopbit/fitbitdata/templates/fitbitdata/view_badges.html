@@ -7,31 +7,60 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{% load static %}
-<script src="{% static 'fitbitdata/script.js' %}"></script>
+
+{% csrf_token %}
 <body>
-  {{ csrf_token }}
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/home/">Back</a>
+  </nav>
   {% for distance in distance_badges %}
-    <a>{{ distance.1 }}</a>
-    {% if distance.0 == True %}
-    <button id="share" class="sharebutton" value="{{ distance.1 }}">share</button>
-    {% else %}
-    <a>pending</a>
-    {% endif %}
+
+    <div class="card mb-3" style="max-width: 100%;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img class="rounded" src="{% static 'fitbitdata/' %}{{ distance.1 }}.png" alt="My image" width=100%>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ distance.1 }}</h5>
+          {% if distance.0 == True %}
+          <button type="button" class="sharebutton btn btn-primary" value="{{ distance.1 }}">share</button>
+          {% else %}
+          <a>pending</a>
+          {% endif %}
+        </div>
+        </div>
+      </div>
+    </div>
+
+
   {% endfor %}
 
   {% for floors in floors_badges %}
-  <a>{{ floors.1 }}</a>
-  {% if floors.0 == True %}
-  <button id="share" value="{{ floors.1 }}">share</button>
-  {% else %}
-  <a>pending</a>
-  {% endif %}
+  <div class="card mb-3" style="max-width: 100%;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="{% static 'fitbitdata/' %}{{ floors.1 }}.png" alt="My image" width=100%>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ floors.1 }}</h5>
+          {% if floors.0 == True %}
+          <p><button type="button" class="sharebutton btn btn-primary" value="{{ floors.1 }}">share</button></p>
+          {% else %}
+          <a>pending</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
   {% endfor %}
 
-
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% load static %}
+  <script src="{% static 'fitbitdata/script.js' %}"></script>
 </body>
 
 </html>

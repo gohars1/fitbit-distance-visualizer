@@ -6,5 +6,6 @@ from . import views
 
 urlpatterns = [
    path('share/', views.share_badge, name='share_badge'),
-   path('feed/', views.view_feed, name='view_feed')
+   path('feed/', views.view_feed, name='view_feed'),
+   path('delete/', views.delete_post, name='delete-post')
 ]

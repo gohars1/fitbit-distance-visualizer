@@ -13,10 +13,35 @@ $(document).ready(function(){
                 console.log("great!")
             },
             error: function(){
-                console.log("wrang");
+                console.log("wrong");
             }
         })
-    }); 
+    });
+    
+    $(".deletebutton").click(function(){
+        const csrftoken = Cookies.get('csrftoken');
+        var post_id = $(this).attr("value");
+        var json = { "post_id" : post_id }
+
+        $.ajax({
+            type: 'POST',
+            url: '/delete/',
+            headers: { 'X-CSRFToken': csrftoken },
+            data: json,
+            success: function(){
+                $("#" + post_id).remove()
+            },
+            error: function(){
+                console.log("wrong");
+            }
+        })
+    });
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
 });
 function getCookie(name) {
     let cookieValue = null;

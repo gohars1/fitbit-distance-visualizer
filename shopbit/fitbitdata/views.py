@@ -3,6 +3,7 @@ from django.template import loader
 from fitbit.api import Fitbit
 from urllib.parse import urlparse
 from .models import User
+from socialapp.models import Post
 from .utils import *
 import config
 import threading
@@ -35,22 +36,26 @@ def main_page(request):
         tokens = fitbit.client.fetch_access_token(code)
         access_token = tokens["access_token"]
         refresh_token = tokens["refresh_token"]
-        # refresh_cb = tokens["refresh_cb"]
         expires_at = int(tokens["expires_at"])
-
+        lifetime_activity = get_lifetime_activity(access_token)
         new_user = create_or_update_user(fitbit, access_token)
-        context = { 'user' : new_user[0] }
+        user_posts = Post.objects.filter(user_id=new_user[0]) 
+        context = { 'lifetime_distance' : lifetime_activity["lifetime"]["total"]["distance"], 
+            'lifetime_floors' : lifetime_activity["lifetime"]["total"]["floors"],
+            'user_posts' : user_posts  }
         response = HttpResponse(template.render(context, request))
         response.set_cookie(key='token' ,value=access_token)
         response.set_cookie(key='refresh', value=refresh_token)
         response.set_cookie(key='expires_at', value=expires_at)
-        # response.set_cookie(key='refresh_cb', value=refresh_cb)
+
         return response
     else:
         fitbit = create_fitbit_with_cookies(request)# fitbit.client.access_token = access_token
         lifetime_distance = get_lifetime_from_cookies(request)[0]
         lifetime_floors = get_lifetime_from_cookies(request)[1]
-        context = { 'lifetime_distance' : lifetime_distance, 'lifetime_floors' : lifetime_floors }
+        new_user = create_or_update_user(fitbit, access_token)
+        user_posts = Post.objects.filter(user_id=new_user[0]) 
+        context = { 'lifetime_distance' : lifetime_distance, 'lifetime_floors' : lifetime_floors, 'user_posts' : user_posts }
         response = HttpResponse(template.render(context, request))
         return response
 

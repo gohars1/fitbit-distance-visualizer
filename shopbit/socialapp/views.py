@@ -17,6 +17,12 @@ def share_badge(request):
     post.save()
     return HttpResponse("hello")
 
+def delete_post(request):
+    post_id = request.POST.get('post_id')
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return HttpResponse("deleted")
+
 def view_feed(request):
     posts = Post.objects.all()
     template = loader.get_template('socialapp/view_feed.html')

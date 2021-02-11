@@ -4,18 +4,77 @@
 <head>
   <meta charset="utf-8">
   <title>Main Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  {% load static %}
+  <link href="{% static 'fitbitdata/main.css' %}" rel="stylesheet">
 
+</head>
+{% csrf_token %}
 <body>
-    {{ user.life_time_km }}
-    <a href = "/badges/">
-        whatidoo
-    </a>
-    <a href="/feed/">
-        feed
-    </a>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/badges/">
+                        Badges
+                    </a>
+                </li>
+                <li>
+                    <a href="/feed/">Feed</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+    
+            <div class="row">
+              <div class="column">
+                <div id="kmcard" class="card">
+                  <h3>Lifetime Distance</h3>
+                  <h1>{{ lifetime_distance }}</h1>
+                </div>
+              </div>
+            
+              <div class="column">
+                <div id="elevation-card" class="card">
+                  <h3>Lifetime Elevation</h3>
+                  <h1>{{ lifetime_floors }}</h1>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="container2">
+                    {% for post in user_posts %}
+                        <div class="card text-white bg-primary mb-3 center" id="{{ post.id }}"  style="max-width: 18rem;">
+                          <div class="card-header">{{ post.username }} posted: </div>
+                          <div class="card-body">
+                            <h5 class="card-title">{{ post.text }}</h5>
+                          </div>
+                          <button class="deletebutton" value="{{ post.id }}">delete</button>
+                        </div>
+                    {% endfor %} 
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+     <!-- Menu Toggle Script -->
+     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% load static %}
+<script src="{% static 'fitbitdata/script.js' %}"></script>
 </body>
 
 </html>
