@@ -43,8 +43,7 @@ def create_or_update_user(fitbit, access_token):
     life_time_stats = get_lifetime_activity(access_token)
     life_time_km = life_time_stats["lifetime"]["total"]["distance"]
     life_time_floors = life_time_stats["lifetime"]["total"]["floors"]
-    new_user = User.objects.get_or_create(user_id=encoded_id, username=user_profile['user']['fullName'], life_time_km=life_time_km
-    , life_time_floors=life_time_floors)
+    new_user = User.objects.get_or_create(user_id=encoded_id, username=user_profile['user']['fullName'])
     return new_user
 
 def create_fitbit_with_cookies(request):

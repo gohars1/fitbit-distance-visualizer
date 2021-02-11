@@ -9,8 +9,6 @@ floors_hash = {147 : "CN Tower", 102 : "Empire State", 2061: "Mount Everest" , 2
 class User(models.Model):
     user_id = models.CharField(max_length=20, primary_key=True)
     username = models.CharField(max_length=200)
-    life_time_km = models.IntegerField(default=0)
-    life_time_floors = models.IntegerField(default=0)
 
 # class UserBadges(models.Model):
 #     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
